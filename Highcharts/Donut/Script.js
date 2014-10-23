@@ -1,142 +1,104 @@
-Qva.AddExtension('QlikView/Examples/bullet', function() {
-    Qva.LoadCSS("/QvAjaxZfc/QvsViewClient.aspx?public=only&name=Extensions/QlikView/Examples/bullet/bullet.css");
-	var r=Math.floor(Math.random()*10001);
-	var divName = "bulletContainer" + r;
-    this.Element.innerHTML = "<div id='" + divName + "'></div>";
-    var tot = this.Data.Rows[0][0].text;
-	var ticFlag = this.Layout.Text4.text;
-	var maxColor = colorFormatter(this.Layout.Text0.text.toString(), "Max Range Bar color");
-	var m1 = this.Data.Rows[0][2].text/tot;
-	var m1Color = "";
-	if((m1 != 0) && !(isNaN(m1))){
-		m1Color = colorFormatter(this.Layout.Text2.text.toString(), "Medium Range Bar color");
-	}
-	var m2 = this.Data.Rows[0][1].text/tot;
-	var m2Color = "";
-	if((m2 != 0) && !(isNaN(m2))){
-		m2Color = colorFormatter(this.Layout.Text1.text.toString(), "Short Range Bar color");
-	}
-	var per = this.Data.Rows[0][3].text/tot;
-	var perColor = colorFormatter(this.Layout.Text3.text.toString(), "Fill Bar Color");
-	var bench = this.Data.Rows[0][4].text/tot;
-	var orient = "";
-	var ticScale = "";
-	var thisHeight = this.GetHeight();
-	var thisWidth = this.GetWidth();
-	if(thisHeight > thisWidth){
-	    orient = "v";
-	    ticScale = thisHeight;
-	}else{
-	    orient = "h";
-	    ticScale = thisWidth;
-	}
-	var bul = document.getElementById(divName);
-	bul.style.height = this.GetHeight() + "px";
-	bul.style.width = this.GetWidth() + "px";
-	if((ticFlag == 1) && (orient == "h")){
-		var scaleH = bul.offsetHeight - 5;
-	}else{
-		var scaleH = bul.offsetHeight;
-	}
-	if((ticFlag == 1) && (orient == "v")){
-		var scaleW = bul.offsetWidth - 5;
-	}else{
-		var scaleW = bul.offsetWidth;
-	}
-	var scaleBar = document.createElement("div");
-	scaleBar.style.height = scaleH + 'px';
-	scaleBar.style.width = scaleW + 'px';
-	scaleBar.style.backgroundColor = maxColor;
-	scaleBar.style.zIndex = "1";
-	scaleBar.className = 'largeBar';
-	bul.appendChild(scaleBar);
-	var m1Bar = document.createElement("div");
-	if(orient == "v"){
-		m1Bar.style.width = scaleW + 'px';
-		m1Bar.style.height = (scaleH * m1) + 'px';
-		m1Bar.style.bottom = 0 + 'px';
-	}else{
-		m1Bar.style.height = scaleH + 'px';
-		m1Bar.style.width = (scaleW * m1) + 'px';
-	}
-	m1Bar.style.backgroundColor = m1Color;
-	m1Bar.style.zIndex = "2";
-	m1Bar.className = 'largeBar';
-	bul.appendChild(m1Bar);
-	var m2Bar = document.createElement("div");
-	if(orient == "v"){
-		m2Bar.style.width = scaleW + 'px';
-		m2Bar.style.height = (scaleH * m2) + 'px';
-		m2Bar.style.bottom = 0 + 'px';
-	}else{
-		m2Bar.style.height = scaleH + 'px';
-		m2Bar.style.width = (scaleW * m2) + 'px';
-	}
-	m2Bar.style.backgroundColor = m2Color;
-	m2Bar.style.zIndex = "3";
-	m2Bar.className = 'largeBar';
-	bul.appendChild(m2Bar);
-	var perBar = document.createElement("div");
-	if(orient == "v"){
-		perBar.style.width = (scaleW/3) + 'px';
-		perBar.style.height = (scaleH * per) + 'px';
-		perBar.style.bottom = 0 + 'px';
-	} else{
-		perBar.style.height = (scaleH/3) + 'px';
-		perBar.style.width = (scaleW * per) + 'px';
-	}
-	perBar.style.backgroundColor = perColor;
-	perBar.style.zIndex = "4";
-	perBar.className = 'perBar';
-	bul.appendChild(perBar);
-	if(orient == "v"){
-		perBar.style.left = (scaleW/3) + 'px';
-	}else{
-		perBar.style.top = (scaleH/3) + 'px';
-	}
-	var benBar = document.createElement("div");
-	if(orient == "v"){
-		benBar.style.width = (scaleW - (scaleW/4)) + 'px';
-		benBar.style.height = (scaleH/60) + 'px';
-	}else{
-		benBar.style.height = (scaleH - (scaleH/4)) + 'px';
-		benBar.style.width = (scaleW/60) + 'px';
-	}
-	benBar.style.backgroundColor = perColor;
-	benBar.style.zIndex = "5";
-	benBar.className = 'benBar';
-	bul.appendChild(benBar);
-	if(orient == "v"){
-		benBar.style.left = ((scaleW/4)/2) + 'px';
-		benBar.style.bottom = (scaleH * bench) + 'px';
-	}else{
-		benBar.style.top = ((scaleH/4)/2) + 'px';
-		benBar.style.left = (scaleW * bench) + 'px';
-	}
-	/*
-	number of tic marks include the tic for zero.  So if you want tics for 1-5, the value in placeTics
-	should be 6 in order to include the 0 tic
-	*/
-	if(ticFlag == 1){
-		placeTics(orient, ticScale, 6, bul);
-	}
-	if(colorErr.length > 0){
-		if(colorErr.length === 1){
-			this.Element.innerHTML = "Please enter a hex or rgb color value in the " + colorErr[0] + " box";
-		}else{
-			this.Element.innerHTML = "Please enter a hex or rgb color value in the ";
-			for(var i=0;i < colorErr.length; i++){
-				if(i != 0){
-					this.Element.innerHTML += ", ";
-				}
-				if((i + 1) === colorErr.length){
-					this.Element.innerHTML += "and ";
-				}
-				this.Element.innerHTML += colorErr[i];
-			}
-			this.Element.innerHTML += " boxes";
-		}
-		this.Element.style.font = "11px arial,sans-serif";
-		this.Element.style.color = "red";
-	}
-});
+function init() {
+  //Qva.LoadScript('https://getfirebug.com/firebug-lite-beta.js#startOpened=true', function () {
+    Qva.LoadScript("/QvAjaxZfc/QvsViewClient.aspx?public=only&name=Extensions/Highcharts/Donut/jquery.min.js", function () {
+        Qva.LoadScript("/QvAjaxZfc/QvsViewClient.aspx?public=only&name=Extensions/Highcharts/Donut/highcharts.js", function() {
+          Qva.LoadScript("/QvAjaxZfc/QvsViewClient.aspx?public=only&name=Extensions/Highcharts/Donut/exporting.js", setup);
+        });
+    });
+  //});
+}
+
+function setup() {
+    Qva.AddExtension("Highcharts/Donut", function () {
+            var _this = this;
+
+            var colors = Highcharts.getOptions().colors;
+            var categories = [];
+            var data = [];
+
+            d = this.Data;
+            for(a = 0; a < d.Rows.length; a++) {
+              categories.push(d.Rows[a][0].text);
+              obj = {
+                y : parseInt(d.Rows[a][1].text),
+                color : colors[a],
+                row: a
+              };
+
+              data.push(obj);
+            }
+
+            var ui = document.createElement("div");
+            ui.setAttribute('id', 'container');
+            this.Element.appendChild(ui);
+
+              var browserData = [];
+
+          // Build the data arrays
+
+          for (i = 0; i < data.length; i++) {
+
+              // add browser data
+              browserData.push({
+                  name: categories[i],
+                  y: data[i].y,
+                  color: data[i].color,
+                  row: data[i].row
+              });
+          }
+
+          $('#container').highcharts({
+              chart: {
+                  type: 'pie'
+              },
+              title: {
+                  text: 'Sales vs. Profit (2012)'
+              },
+              yAxis: {
+                  title: {
+                      text: 'Total percent market share'
+                  }
+              },
+              plotOptions: {
+                  pie: {
+                      shadow: false,
+                      center: ['50%', '50%']
+                  },
+            series: {
+                cursor: 'pointer',
+                point: {
+                    events: {
+                        click: function () {
+                            _this.Data.SelectRow(this.row);
+                        }
+                    }
+                }
+            }
+
+
+
+
+              },
+              tooltip: {
+                  valueSuffix: '%'
+              },
+              series: [
+              {
+                  name: 'Versions',
+                  data: browserData,
+                  size: '100%',
+                  innerSize: '70%',
+                  dataLabels: {
+                      formatter: function () {
+                          return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%'  : null;
+                      }
+                  }
+              }
+              ]
+          });
+
+
+    });
+};
+
+init();
