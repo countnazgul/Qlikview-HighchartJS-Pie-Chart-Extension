@@ -10,7 +10,7 @@
           var colors = Highcharts.getOptions().colors,
               categories = ["Lierac","Phyto","Weleda","Nuxe","John Frieda","Forte Pharma","Oenobiol","Greenland","John Galliano"],
 
-
+//
               data = [{
                   y: 45,
                   color: colors[0]
@@ -57,17 +57,6 @@
                   y: data[i].y,
                   color: data[i].color
               });
-
-              // add version data
-              // drillDataLen = data[i].drilldown.data.length;
-              // for (j = 0; j < drillDataLen; j += 1) {
-              //     brightness = 0.2 - (j / drillDataLen) / 5;
-              //     versionsData.push({
-              //         name: data[i].drilldown.categories[j],
-              //         y: data[i].drilldown.data[j],
-              //         color: Highcharts.Color(data[i].color).brighten(brightness).get()
-              //     });
-              // }
           }
 
           // Create the chart
@@ -93,28 +82,13 @@
                   valueSuffix: '%'
               },
               series: [
-              //   {
-              //     name: 'Browsers',
-              //     data: browserData,
-              //     size: '80%',
-              //     innerSize: '60%',
-              //     dataLabels: {
-              //         formatter: function () {
-              //             //return this.y > 5 ? this.point.name : null;
-              //             return this.y > 5 ? '<b>' + this.point.name + ':</b> ' + this.y + '%'  : null;
-              //         },
-              //         color: 'white',
-              //         distance: -30
-              //     }
-              // }
                {
                   name: 'Versions',
-                  data: browserData, //versionsData,
-                  size: '80%',
+                  data: browserData,
+                  size: '100%',
                   innerSize: '60%',
                   dataLabels: {
                       formatter: function () {
-                          // display only if larger than 1
                           return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%'  : null;
                       }
                   }

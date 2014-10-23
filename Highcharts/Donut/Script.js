@@ -1,65 +1,4 @@
-var colorErr = [];
-
-placeTics = function(vh, vhnum, tnum, c){
-    var ticLong = "5px";
-    var ticShort = "2px";
-    var unit = vhnum/(tnum - 1);
-    var cSpan = 0;
-    for(var i=0;i<tnum;i++){
-        var newTic = document.createElement("div");
-        newTic.className = "tic";
-	
-        newTic.style.backgroundColor = "#d8d8d8";
-        if(cSpan != 0){
-            if(vh == "h"){
-		newTic.style.left  = (cSpan-2) + 'px';
-	    }else{
-		newTic.style.top  = (cSpan-2) + 'px';
-	    }
-        }else{
-	    if(vh == "h"){
-		newTic.style.left  = cSpan + 'px';
-	    }else{
-		newTic.style.top  = cSpan + 'px';
-	    }
-        }
-        if(vh == "h"){
-		newTic.style.width = ticShort;
-		newTic.style.height = ticLong;
-		newTic.style.top  =  (c.offsetHeight - 5) + 'px';
-	}else{
-		newTic.style.width = ticLong;
-		newTic.style.height = ticShort;
-		newTic.style.left  =  (c.offsetWidth - 5) + 'px';
-	}
-        
-        c.appendChild(newTic);
-        cSpan = cSpan + unit;
-    }
-}
-
-colorFormatter = function(c, type){
-	var cc = c.toLowerCase();
-	if((cc.length === 0) && (colorErr != 1)){
-		colorErr.push(type);
-		//alert("Please enter a hex or rgb color value in the " + type + " box");
-	}else if((cc.indexOf("rgb") === -1) && (cc.indexOf("#") === -1)){
-		if(cc.length < 6){
-			var addIt = "#";
-			for(var i=cc.length; i < 6;i++){
-				addIt += "0";
-			}
-			cc = addIt + cc
-		}else{
-			cc = "#" + cc;
-		}
-		return cc;
-	}else{
-		return cc;
-	}
-}
-Qva.AddExtension('QlikView/Examples/bullet', function() { 
-    colorErr = [];
+Qva.AddExtension('QlikView/Examples/bullet', function() {
     Qva.LoadCSS("/QvAjaxZfc/QvsViewClient.aspx?public=only&name=Extensions/QlikView/Examples/bullet/bullet.css");
 	var r=Math.floor(Math.random()*10001);
 	var divName = "bulletContainer" + r;
@@ -95,9 +34,9 @@ Qva.AddExtension('QlikView/Examples/bullet', function() {
 	bul.style.height = this.GetHeight() + "px";
 	bul.style.width = this.GetWidth() + "px";
 	if((ticFlag == 1) && (orient == "h")){
-		var scaleH = bul.offsetHeight - 5; 
+		var scaleH = bul.offsetHeight - 5;
 	}else{
-		var scaleH = bul.offsetHeight; 
+		var scaleH = bul.offsetHeight;
 	}
 	if((ticFlag == 1) && (orient == "v")){
 		var scaleW = bul.offsetWidth - 5;
@@ -169,13 +108,13 @@ Qva.AddExtension('QlikView/Examples/bullet', function() {
 	bul.appendChild(benBar);
 	if(orient == "v"){
 		benBar.style.left = ((scaleW/4)/2) + 'px';
-		benBar.style.bottom = (scaleH * bench) + 'px';	
+		benBar.style.bottom = (scaleH * bench) + 'px';
 	}else{
 		benBar.style.top = ((scaleH/4)/2) + 'px';
 		benBar.style.left = (scaleW * bench) + 'px';
 	}
 	/*
-	number of tic marks include the tic for zero.  So if you want tics for 1-5, the value in placeTics 
+	number of tic marks include the tic for zero.  So if you want tics for 1-5, the value in placeTics
 	should be 6 in order to include the 0 tic
 	*/
 	if(ticFlag == 1){
