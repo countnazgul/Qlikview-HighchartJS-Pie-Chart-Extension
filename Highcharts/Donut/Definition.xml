@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ExtensionObject Label="Bullet Chart" Description="Bullet Chart" PageHeight="100000">
+	<Measurement Label="Measurement1" Initial="" />
+	<Text Label="Color1" Type="color" Initial="" Expression="#D4D4D4"/>
+ 	<Measurement Label="Measurement2" Initial="" />
+	<Text Label="Color2" Type="color" Initial="" Expression="#A39D9D"/>
+	<Measurement Label="Measurement3" Initial="" />
+	<Text Label="Color3" Type="color" Initial="" Expression="#6E6A6A"/>
+	<Measurement Label="Measurement4" Initial="" />
+	<Text Label="Color4" Type="color" Initial="" Expression="#010101"/>
+	<Measurement Label="Measurement5" Initial="" />
+	<Text Label="Text1" Initial="" Expression=""/>
+ 	<Initiate Name="Chart.Title" value="Bullet Chart" />
+ 	<Initiate Name="Caption.Text" Value="Bullet Chart" />
+</ExtensionObject>
