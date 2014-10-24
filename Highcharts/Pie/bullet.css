@@ -1,0 +1,5 @@
+﻿#bulletContainer{
+	display:block;position:relative;
+}
+.largeBar, .perBar, .benBar{position:absolute;display:block;}
+.tic{display:block;position:absolute;z-index:7;}

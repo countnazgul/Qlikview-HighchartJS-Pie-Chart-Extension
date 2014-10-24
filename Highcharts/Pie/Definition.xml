@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ExtensionObject Label="Pie" Description="HighchartsJS  Pie Chart" PageHeight="300000">
+  <Dimension Label="Dimension" Initial=""/>
+  <Measurement Label="Measurement" Initial="" />
+  <Text Label="Size" Type="text" Initial=""/>
+  <Text Label="Inner Size" Type="text" Initial=""/>
+  <Text Label="Title" Type="text" Initial=""/>
+  </ExtensionObject>
+
+
+
